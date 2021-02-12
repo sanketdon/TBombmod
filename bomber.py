@@ -82,76 +82,7 @@ def format_phone(num):
     return ''.join(num).strip()
 
 
-def do_zip_update():
-    success = False
 
-    # Download Zip from git
-    # Unzip and overwrite the current folder
-
-    if success:
-        mesgdcrt.SuccessMessage("TBomb was updated to the latest version")
-        mesgdcrt.GeneralMessage(
-            "Please run the script again to load the latest version")
-    else:
-        mesgdcrt.FailureMessage("Unable to update TBomb.")
-        mesgdcrt.WarningMessage(
-            "Grab The Latest one From https://github.com/TheSpeedX/TBomb.git")
-
-    sys.exit()
-
-
-def do_git_update():
-    success = False
-    try:
-        print(ALL_COLORS[0]+"UPDATING "+RESET_ALL, end='')
-        process = subprocess.Popen("git checkout . && git pull ",
-                                   shell=True,
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT)
-        while process:
-            print(ALL_COLORS[0]+'.'+RESET_ALL, end='')
-            time.sleep(1)
-            returncode = process.poll()
-            if returncode is not None:
-                break
-        success = not process.returncode
-    except Exception:
-        success = False
-    print("\n")
-
-    if success:
-        mesgdcrt.SuccessMessage("TBomb was updated to the latest version")
-        mesgdcrt.GeneralMessage(
-            "Please run the script again to load the latest version")
-    else:
-        mesgdcrt.FailureMessage("Unable to update TBomb.")
-        mesgdcrt.WarningMessage("Make Sure To Install 'git' ")
-        mesgdcrt.GeneralMessage("Then run command:")
-        print(
-            "git checkout . && "
-            "git pull https://github.com/TheSpeedX/TBomb.git HEAD")
-    sys.exit()
-
-
-def update():
-    if shutil.which('git'):
-        do_git_update()
-    else:
-        do_zip_update()
-
-
-def check_for_updates():
-    mesgdcrt.SectionMessage("Checking for updates")
-    fver = requests.get(
-            "https://raw.githubusercontent.com/TheSpeedX/TBomb/master/.version"
-            ).text.strip()
-    if fver != __VERSION__:
-        mesgdcrt.WarningMessage("An update is available")
-        mesgdcrt.GeneralMessage("Starting update...")
-        update()
-    else:
-        mesgdcrt.SuccessMessage("TBomb is up-to-date")
-        mesgdcrt.GeneralMessage("Starting TBomb")
 
 
 def notifyen():
@@ -275,7 +206,7 @@ def selectnode(mode="sms"):
         clr()
         bann_text()
         check_intr()
-        check_for_updates()
+        
         notifyen()
 
         max_limit = {"sms": 99999999999999, "call": 9999999999999999, "mail": 999999999999}
