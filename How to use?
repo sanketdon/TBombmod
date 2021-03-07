@@ -2,6 +2,7 @@ For Termux
 
 pkg install git -y 
 pkg install python -y 
+chomod +x TBomb.sh
 git clone https://github.com/sanketdon/TBombmod
 cd TBomb
 ./TBomb.sh
@@ -13,4 +14,5 @@ For Debian-based GNU/Linux distributions
 sudo apt install git
 git clone https://github.com/sanketdon/TBombmod
 cd TBomb
+chomod +x TBomb.sh
 bash TBomb.sh
